@@ -149,8 +149,8 @@ def start():
     findAndClick(["open-icon", "open-icon-cooldown"])
     while True:
         startText = findImages(["start-text"])
-        # if startText:
-        startGame()
+        if startText:
+            startGame()
         if enableAutoDeconstruction:
             destroyInventory()
 
