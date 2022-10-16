@@ -61,8 +61,8 @@ def findImages(i, types):
 
     if debug:
         start = time.time()
-        # mss.tools.to_png(img_rgb.rgb, img_rgb.size,
-        #                  output="tests/screenshot.png")
+        mss.tools.to_png(img_rgb.rgb, img_rgb.size,
+                         output="tests/screenshot.png")
     if debug:
         end = time.time()
         print("time taken for save: " + str(end - start))
@@ -108,15 +108,15 @@ def findImages(i, types):
         groupedImagesByType = reduce(removeDuplicates, tiles, [])
         if len(groupedImagesByType) > 0:
             groupedImages[type] = groupedImagesByType
-            # if debug:
-            #     for tile in groupedImages[type]:
-            #         pt = tile["pt"]
-            #         cv2.rectangle(img_rgb, pt,
-            #                       (pt[0] + w, pt[1] + h), (0, 0, 255), 2)
-            #         cv2.putText(img_rgb, type,
-            #                     (pt[0] + w, pt[1] + h),  cv2.FONT_HERSHEY_SIMPLEX, 0.6, (255, 255, 255), 2)
+            if debug:
+                for tile in groupedImages[type]:
+                    pt = tile["pt"]
+                    cv2.rectangle(img_rgb, pt,
+                                  (pt[0] + w, pt[1] + h), (0, 0, 255), 2)
+                    cv2.putText(img_rgb, type,
+                                (pt[0] + w, pt[1] + h),  cv2.FONT_HERSHEY_SIMPLEX, 0.6, (255, 255, 255), 2)
     if debug:
-        # cv2.imwrite('tests/result-'+i+'.png', img_rgb)
+        cv2.imwrite('tests/result-'+i+'.png', img_rgb)
         print("time taken: " + str(totalTime))
     # we do this as this game only needs 1 not groups
     group = list(groupedImages.values())
