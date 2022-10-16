@@ -6,6 +6,8 @@ import pyautogui
 import time
 import mss
 from datetime import datetime
+import os
+import shutil
 
 imageDir = 'images'
 debug = False
@@ -99,8 +101,8 @@ def findImages(types, gameboard=False):
                               (pt[0] + w, pt[1] + h), (0, 0, 255), 2)
                 cv2.putText(img_rgb, type,
                             (pt[0] + w, pt[1] + h),  cv2.FONT_HERSHEY_SIMPLEX, 0.6, (255, 255, 255), 2)
-                cv2.imwrite('tests/result-' +
-                            datetime.now().strftime('%H:%M:%S')+'.png', img_rgb)
+                cv2.imwrite('tests/result-' + type + "-" +
+                            datetime.now().strftime('%H-%M-%S')+'.png', img_rgb)
             if debugTime:
                 print("total time taken to match: " + str(totalTime))
             return tile
@@ -126,9 +128,9 @@ def startGame():
     i = 2
     running = True
     while running:
-        findAndClick(["green", "yellow"], True, gameboardBaseX, gameboardBaseY)
+        findAndClick(["potato"], True, gameboardBaseX, gameboardBaseY)
         i = i + 1
-        if i % 100 == 0:
+        if i % 250 == 0:
             print("checking if the game finished")
             timer = findImages(["timer"])
             if timer:
@@ -145,7 +147,15 @@ def destroyInventory():
     findAndClick(["open-icon", "open-icon-cooldown"])
 
 
+def removeTestFiles():
+    testDir = os.getcwd() + '\\tests'
+    shutil.rmtree(testDir)
+    os.makedirs(testDir)
+
+
 def start():
+    if debug:
+        removeTestFiles()
     findAndClick(["open-icon", "open-icon-cooldown"])
     while True:
         startText = findImages(["start-text"])
