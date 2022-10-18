@@ -130,7 +130,7 @@ def startGame():
     while running:
         findAndClick(["potato"], True, gameboardBaseX, gameboardBaseY)
         i = i + 1
-        if i % 250 == 0:
+        if i % 800 == 0:
             print("checking if the game finished")
             timer = findImages(["timer"])
             if timer:
@@ -140,7 +140,7 @@ def startGame():
 def destroyInventory():
     print("Destorying equipment")
     findAndClick(["exit-icon"], False, 0, -baseY)
-    findAndClick(["inventory"])
+    findAndClick(["inventory"], False, 10)
     findAndClick(["destroy-inventory"])
     findAndClick(["tick"])
     findAndClick(["home-icon"])
@@ -161,11 +161,11 @@ def start():
         startText = findImages(["start-text"])
         if startText:
             startGame()
-        if enableAutoDeconstruction:
-            destroyInventory()
+            if enableAutoDeconstruction:
+                destroyInventory()
 
-        print("Sleeping for 5 minutes")
-        time.sleep(60*5)
+        print("Sleeping for 30 seconds")
+        time.sleep(15)
 
 
 start()
